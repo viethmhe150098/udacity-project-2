@@ -13,7 +13,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
-  app.get("/filteredimage", async (req: any, res: any) => {
+  app.get("/filteredimage", async (req: Request, res: Response) => {
     const image_url: string = (typeof req.query.image_url === 'string') ? req.query.image_url : "";
     // 1. validate the image_url query
     if(!image_url) {
