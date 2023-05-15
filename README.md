@@ -1,1 +1,1 @@
-Endpoint URL for testing: http://image-filter-donglq2-uda.us-east-1.elasticbeanstalk.com/
+Endpoint URL for testing: udacity-mock2-dev.us-east-1.elasticbeanstalk.com

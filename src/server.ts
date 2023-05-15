@@ -13,30 +13,30 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
-  app.get("/filteredimage", async (req: Request, res: Response) => {
+  app.get("/filteredimage", async (req: any, res: any) => {
     const image_url: string = (typeof req.query.image_url === 'string') ? req.query.image_url : "";
     // 1. validate the image_url query
     if(!image_url) {
-      res.status(400).send("image_url is required");
+      res.status(400).send("Image's URL can not be empty");
       return;
     }
 
-    let filteredImagePath: string;
+    
     try{
       // 2. call filterImageFromURL(image_url) to filter the image
-      filteredImagePath = await filterImageFromURL(image_url);
+      const imagePath: string = await filterImageFromURL(image_url);
       // 3. send the resulting file in the response
-      res.sendFile(filteredImagePath, (err) => {
+      res.sendFile(imagePath, (err:Error) => {
         if(err){
-          res.status(500).send("Server error");
+          res.status(500).send("Internal Server error");
           return;
         }
         // 4. deletes any files on the server on finish of the response
-        deleteLocalFiles([filteredImagePath]);
+        deleteLocalFiles([imagePath]);
       })
     } catch(err) {
       console.log(err);
-      res.status(400).send("Bad image_url");
+      res.status(400).send("Image's URL can not be empty");
     }
   })
 
